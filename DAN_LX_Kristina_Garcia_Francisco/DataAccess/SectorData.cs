@@ -57,8 +57,10 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
 
                     if (sector.SectorID == 0)
                     {
-                        tblSector newSector = new tblSector();
-                        newSector.SectorName = sector.SectorName;
+                        tblSector newSector = new tblSector
+                        {
+                            SectorName = sector.SectorName
+                        };
 
                         context.tblSectors.Add(newSector);
                         context.SaveChanges();

@@ -30,11 +30,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.Commands
         /// <param name="canExecute">checks if it can execute the action</param>
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
-            if (execute == null)
-            {
-                throw new ArgumentNullException("execute");
-            }
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException("execute");
             _canExecute = canExecute;
         }
         #endregion

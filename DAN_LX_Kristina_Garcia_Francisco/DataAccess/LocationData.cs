@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
 {
@@ -94,4 +92,5 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
                 }
             }
         }
+    }
 }

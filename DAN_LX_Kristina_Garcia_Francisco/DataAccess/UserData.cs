@@ -117,17 +117,19 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
                     {
                         user.DateOfBirth = val.CountDateOfBirth(user.JMBG);
 
-                        tblUser newUser = new tblUser();
-                        newUser.FirstName = user.FirstName;
-                        newUser.LastName = user.LastName;
-                        newUser.JMBG = user.JMBG;
-                        newUser.IDCard = user.IDCard;
-                        newUser.DateOfBirth = user.DateOfBirth;
-                        newUser.Gender = user.Gender;
-                        newUser.PhoneNumber = user.PhoneNumber;
-                        newUser.SectorID = sector.SectorID;
-                        newUser.LocationID = user.LocationID;
-                        newUser.ManagerID = user.ManagerID;
+                        tblUser newUser = new tblUser
+                        {
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            JMBG = user.JMBG,
+                            IDCard = user.IDCard,
+                            DateOfBirth = user.DateOfBirth,
+                            Gender = user.Gender,
+                            PhoneNumber = user.PhoneNumber,
+                            SectorID = sector.SectorID,
+                            LocationID = user.LocationID,
+                            ManagerID = user.ManagerID
+                        };
 
                         context.tblUsers.Add(newUser);
                         context.SaveChanges();
@@ -174,7 +176,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
             List<tblUser> tblUsers = GetAllUsers();
             try
             {
-                using (WorkerContext context = new WorkerContext())
+                using (EmployeeDBEntities context = new EmployeeDBEntities())
                 {
                     bool isUser = IsUserID(userID);
 
@@ -185,10 +187,6 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
 
                         context.tblUsers.Remove(userToDelete);
                         context.SaveChanges();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cannot delete the user");
                     }
                 }
             }
