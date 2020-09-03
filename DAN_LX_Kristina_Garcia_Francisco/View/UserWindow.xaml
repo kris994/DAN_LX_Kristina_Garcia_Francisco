@@ -40,7 +40,7 @@
                     <DataGridTextColumn Header="ID Card" Binding="{Binding IDCard}"/>
                     <DataGridTextColumn Header="Location" Binding="{Binding LocationID, Converter={StaticResource ResourceKey=locationConverter}}" />
                     <DataGridTextColumn Header="Gender" Binding="{Binding Gender}"/>
-                    <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth}"/>
+                    <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}"/>
                     <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}"/>
                     <DataGridTextColumn Header="Sector" Binding="{Binding SectorName}"/>
                     <DataGridTextColumn Header="Manager" Binding="{Binding ManagerID, Converter={StaticResource ResourceKey=fullNameConverter}}"/>
