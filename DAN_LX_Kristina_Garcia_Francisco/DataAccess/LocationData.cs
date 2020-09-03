@@ -48,6 +48,29 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
         }
 
         /// <summary>
+        /// Gets all location ids from the database
+        /// </summary>
+        /// <returns>a list of found location ids</returns>
+        public List<int> GetAllLocationIDs()
+        {
+            List<int> list = new List<int>();
+
+            try
+            {
+                using (EmployeeDBEntities context = new EmployeeDBEntities())
+                {
+                    list = (from x in context.tblLocations select x).OrderBy(x => x.LocationID).Select(x => x.LocationID).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Reads all locations from the file and adds them to the list
         /// </summary>
         /// <param name="location">list of locations</param>

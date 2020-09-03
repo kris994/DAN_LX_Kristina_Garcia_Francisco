@@ -15,7 +15,8 @@ namespace DAN_LX_Kristina_Garcia_Francisco.Model
             "JMBG",
             "Gender",
             "IDCard",
-            "PhoneNumber"
+            "PhoneNumber",
+            "LocationID"
         };
 
         /// <summary>
@@ -73,7 +74,11 @@ namespace DAN_LX_Kristina_Garcia_Francisco.Model
                         break;
 
                     case "PhoneNumber":
-                        result = this.validation.TooShort(PhoneNumber, 3);
+                        result = this.validation.PhoneNumberChecker(PhoneNumber, UserID);
+                        break;
+
+                    case "LocationID":
+                        result = this.validation.CannotBeZero(LocationID);
                         break;
 
                     default:

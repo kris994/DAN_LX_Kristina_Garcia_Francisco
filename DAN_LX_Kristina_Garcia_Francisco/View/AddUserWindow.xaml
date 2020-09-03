@@ -4,9 +4,154 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAN_LX_Kristina_Garcia_Francisco.View"
+        xmlns:c="clr-namespace:DAN_LX_Kristina_Garcia_Francisco.Converter"
+        xmlns:vm="clr-namespace:DAN_LX_Kristina_Garcia_Francisco.Model" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="AddUserWindow" Height="450" Width="800">
+        Title="Add User" Height="500" Width="350">
+
+    <Window.Resources>
+        <c:GenderConverter x:Key="genderConverter" />
+        <c:LocationConverter x:Key="LocationConverter" />
+        <c:FullNameConverter x:Key="FullNameConverter" />
+        <vm:tblUser x:Key="data"/>
+
+        <!--The tool tip for the TextBox to display the validation error message.-->
+        <Style x:Key="textBoxInError" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="27" Grid.ColumnSpan="4">*Mouse-over to see the validation error message.</TextBlock>
+        <Label Grid.Column="1" Grid.Row="1" Name="lblFirstName" Content="First Name:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="3" Name="lblLastName" Content="Last Name:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="5" Name="lblJMBG" Content="JMBG:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="7" Name="lblIDCard" Content="Date of Birth:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="9" Name="lblDateOfBirth" Content="ID Card:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="11" Name="lblGender" Content="Gender:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="13" Name="lblLPhoneNumber" Content="Phone Number:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="15" Name="lblLocation" Content="Location:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="17" Name="lblSector" Content="Sector:" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="1" Grid.Row="19" Name="lblMenager" Content="Menager:" Padding="0" HorizontalAlignment="Right"/>
+
+        <TextBox Grid.Column="3" Grid.Row="1" Name="txtFirstName" Height="30" Width="150" Style="{StaticResource textBoxInError}"
+                 Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Column="3" Grid.Row="3" Name="txtLastName" Height="30" Width="150" Style="{StaticResource textBoxInError}"
+                 Text="{Binding User.LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Column="3" Grid.Row="5" Name="txtJMBG" Height="30" Width="150"
+                 Text="{Binding User.JMBG, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 PreviewTextInput="NumberValidationTextBox" Style="{StaticResource textBoxInError}"/>
+        <TextBox Grid.Column="3" Grid.Row="7" Name="txtDateOfBirth" Height="30" Width="150" TextChanged="TextBox_TextChanged" 
+                 Text="{Binding ElementName=txtJMBG, Path=Text, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+        <TextBox Grid.Column="3" Grid.Row="9" Name="txtIDCard" Height="30" Width="150"
+                 Text="{Binding User.IDCard, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 PreviewTextInput="NumberValidationTextBox" Style="{StaticResource textBoxInError}"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="11">
+            <RadioButton  GroupName="gender" Width="50" Name="cbM" Content="Male" IsChecked="{Binding User.Gender, 
+                Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=M, UpdateSourceTrigger=PropertyChanged}"></RadioButton>
+            <RadioButton  GroupName="gender" Width="60" Name="cbF" Content="Female" IsChecked="{Binding User.Gender, 
+                Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=F, UpdateSourceTrigger=PropertyChanged}"></RadioButton>
+            <RadioButton  GroupName="gender" Width="50" Name="cbX" Content="Other" IsChecked="{Binding User.Gender, 
+                Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=X, UpdateSourceTrigger=PropertyChanged}"></RadioButton>
+        </StackPanel>
+        <TextBox Grid.Column="3" Grid.Row="13" Name="txtPhoneNumber" Height="30" Width="150"
+                 Text="{Binding User.PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 PreviewTextInput="NumberValidationTextBox" Style="{StaticResource textBoxInError}"/>
+        <ComboBox Grid.Column="3" Grid.Row="15" Name="cmbLocation" Height="30" Width="150"
+                  IsEditable="False" ItemsSource="{Binding LocationIDList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding User.LocationID}" 
+                  materialDesign:HintAssist.Hint="Location">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Name="txtLocationID" Text="{Binding Converter={StaticResource LocationConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Grid.Column="3" Grid.Row="17" Name="txtSector" Height="30" Width="150" Style="{StaticResource textBoxInError}"
+                 Text="{Binding User.SectorName, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Column="3" Grid.Row="19" Name="cmbManager" Height="30" Width="150" materialDesign:HintAssist.Hint="Manager"
+                  IsEditable="False" ItemsSource="{Binding ManagerList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding User.ManagerID, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Name="txtManagerID" Text="{Binding Converter={StaticResource FullNameConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Button Grid.Column="3" Grid.Row="23" IsDefault="True" Name="btnSave" Content="Save" Height="30" Width="80" HorizontalAlignment="Left"
+                Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=txtFirstName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=txtLastName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=txtJMBG, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=txtIDCard, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=txtPhoneNumber, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=txtSector, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Grid.Column="3" Grid.Row="23" Name="btnClose" IsCancel="True" Content="Close" Height="30" Width="80" HorizontalAlignment="Right"
+                Command="{Binding Close, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

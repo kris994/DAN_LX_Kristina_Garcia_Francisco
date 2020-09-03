@@ -105,6 +105,23 @@ namespace DAN_LX_Kristina_Garcia_Francisco.Helper
         }
 
         /// <summary>
+        /// The input cannot be zero
+        /// </summary>
+        /// <param name="name">name of the input</param>
+        /// <returns>null if the input is correct or string error message if its wrong</returns>
+        public string CannotBeZero(int name)
+        {
+            if (name <= 0)
+            {
+                return "Cannot be empty";
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Checks if the id card is valid
         /// </summary>
         /// <param name="idCard">name of the input</param>
@@ -142,6 +159,50 @@ namespace DAN_LX_Kristina_Garcia_Francisco.Helper
                 if (AllUsers[i].IDCard == idCard && currentIDCard != idCard)
                 {
                     return "This ID Card already exists!";
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Checks if the phone is valid
+        /// </summary>
+        /// <param name="phone">name of the input</param>
+        /// <param name="id">the users id who has the id card</param>
+        /// <returns>null if the input is correct or string error message if its wrong</returns>
+        public string PhoneNumberChecker(string phone, int id)
+        {
+            List<tblUser> AllUsers = userData.GetAllUsers();
+            string currentPhone = "";
+
+            if (phone == null)
+            {
+                return "Phone Number cannot be empty.";
+            }
+
+            // Get the current phone number
+            for (int i = 0; i < AllUsers.Count; i++)
+            {
+                if (AllUsers[i].UserID == id)
+                {
+                    currentPhone = AllUsers[i].PhoneNumber;
+                    break;
+                }
+            }
+
+            // Check if thelength of the id card is correct
+            if (string.IsNullOrWhiteSpace(phone) || phone.Length < 4)
+            {
+                return "Phone number cannot be shorter than 4 characters";
+            }
+
+            // Check if the phone number already exists, but it is not the current phone number
+            for (int i = 0; i < AllUsers.Count; i++)
+            {
+                if (AllUsers[i].PhoneNumber == phone && currentPhone != phone)
+                {
+                    return "This Phone Number already exists!";
                 }
             }
 

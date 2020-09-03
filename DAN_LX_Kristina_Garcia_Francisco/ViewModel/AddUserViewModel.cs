@@ -42,7 +42,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
             LocationList = locationData.GetAllLocations().ToList();
             SectorList = sectorData.GetAllSectors().ToList();
             ManagerList = userData.GetAllManagers(User.UserID).ToList();
-
+            LocationIDList = locationData.GetAllLocationIDs().ToList();
             bgWorker.DoWork += WorkerOnDoWorkUpdate;
         }
 
@@ -58,7 +58,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
             LocationList = locationData.GetAllLocations().ToList();
             SectorList = sectorData.GetAllSectors().ToList();
             ManagerList = userData.GetAllManagers(User.UserID).ToList();
-
+            LocationIDList = locationData.GetAllLocationIDs().ToList();
             bgWorker.DoWork += WorkerOnDoWorkCreate;
         }
         #endregion
@@ -112,8 +112,6 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
             {
                 location = value;
                 OnPropertyChanged("Location");
-                // Set the Location ID that was selected to the user.
-                User.LocationID = location.LocationID;
             }
         }
 
@@ -131,6 +129,23 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
             {
                 locationList = value;
                 OnPropertyChanged("LocationList");
+            }
+        }
+
+        /// <summary>
+        /// List of all location ids
+        /// </summary>
+        private List<int> locationIDList;
+        public List<int> LocationIDList
+        {
+            get
+            {
+                return locationIDList;
+            }
+            set
+            {
+                locationIDList = value;
+                OnPropertyChanged("LocationIDList");
             }
         }
 
@@ -171,8 +186,8 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
         /// <summary>
         /// List of all managers
         /// </summary>
-        private List<tblUser> managerList;
-        public List<tblUser> ManagerList
+        private List<int> managerList;
+        public List<int> ManagerList
         {
             get
             {
@@ -210,10 +225,13 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
         {
             try
             {
-                // Set the Manager ID that was selected to the user.
-                User.ManagerID = manager.UserID;
-                sectorData.AddSector(Sector);
-                userData.AddUser(User, Sector);
+                // Creating the sector
+                tblSector sec = new tblSector
+                {
+                    SectorName = User.SectorName,
+                };
+                sectorData.AddSector(sec);
+                userData.AddUser(User);
 
                 if (!bgWorker.IsBusy)
                 {

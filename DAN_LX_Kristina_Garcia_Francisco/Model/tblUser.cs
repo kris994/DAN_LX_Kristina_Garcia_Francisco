@@ -29,11 +29,10 @@ namespace DAN_LX_Kristina_Garcia_Francisco.Model
         public string IDCard { get; set; }
         public string PhoneNumber { get; set; }
         public Nullable<int> ManagerID { get; set; }
-        public int SectorID { get; set; }
+        public string SectorName { get; set; }
         public int LocationID { get; set; }
     
         public virtual tblLocation tblLocation { get; set; }
-        public virtual tblSector tblSector { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUser> tblUser1 { get; set; }
         public virtual tblUser tblUser2 { get; set; }

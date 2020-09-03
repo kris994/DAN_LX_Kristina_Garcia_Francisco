@@ -87,40 +87,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\FullNameConverter.cs" />
+    <Compile Include="Converter\GenderConverter.cs" />
+    <Compile Include="Converter\LocationConverter.cs" />
+    <Compile Include="Converter\SectorConverter.cs" />
     <Compile Include="DataAccess\LocationData.cs" />
     <Compile Include="DataAccess\SectorData.cs" />
     <Compile Include="DataAccess\UserData.cs" />
+    <Compile Include="Helper\LogMessage.cs" />
     <Compile Include="Helper\Validations.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="View\AddUserWindow.xaml.cs">
-      <DependentUpon>AddUserWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserWindow.xaml.cs">
-      <DependentUpon>UserWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="View\AddUserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Model\EmployeeDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -145,6 +120,31 @@
     <Compile Include="Model\tblUser.cs">
       <DependentUpon>EmployeeDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\User.cs" />
+    <Compile Include="ViewModel\AddUserViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
+    <Compile Include="View\AddUserWindow.xaml.cs">
+      <DependentUpon>AddUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Page Include="View\AddUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -182,8 +182,8 @@
     <Content Include="DLL\DLL.sql" />
     <Content Include="Model\EmployeeDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EmployeeDB.Context.cs</LastGenOutput>
       <DependentUpon>EmployeeDB.edmx</DependentUpon>
+      <LastGenOutput>EmployeeDB.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model\EmployeeDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -4,9 +4,67 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAN_LX_Kristina_Garcia_Francisco.View"
+        xmlns:c="clr-namespace:DAN_LX_Kristina_Garcia_Francisco.Converter"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="User" Height="450" Width="800">
+        Title="User" Height="450" Width="1400">
+    <Window.Resources>
+        <c:LocationConverter x:Key="locationConverter" />
+        <c:SectorConverter x:Key="sectorConverter" />
+        <c:FullNameConverter x:Key="fullNameConverter" />
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <Button Width="120" Height="30" Name="btnAdduser" Content="Add user"
+                    Command="{Binding AddUser, UpdateSourceTrigger=PropertyChanged}" Margin="20,4,4,4" FontWeight="Bold"/>
+        </StackPanel>
+        <Grid Grid.Column="1" Grid.Row="2" Height="auto" Width="auto">
+            <DataGrid Name="DataGridUsers" ItemsSource="{Binding UserList, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding User, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HeadersVisibility="Column"
+                      AutoGenerateColumns="False"
+                      HorizontalGridLinesBrush="Black" BorderBrush="Black" Foreground="Black"
+                      FontWeight="Bold" Margin="20">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="JMBG" Binding="{Binding JMBG}"/>
+                    <DataGridTextColumn Header="ID Card" Binding="{Binding IDCard}"/>
+                    <DataGridTextColumn Header="Location" Binding="{Binding LocationID, Converter={StaticResource ResourceKey=locationConverter}}" />
+                    <DataGridTextColumn Header="Gender" Binding="{Binding Gender}"/>
+                    <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth}"/>
+                    <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}"/>
+                    <DataGridTextColumn Header="Sector" Binding="{Binding SectorName}"/>
+                    <DataGridTextColumn Header="Manager" Binding="{Binding ManagerID, Converter={StaticResource ResourceKey=fullNameConverter}}"/>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="btnDeleteUser" Content="Delete" 
+                                Command="{Binding DataContext.DeleteUser, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
+                                        Margin="4" FontWeight="Bold"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="btnEditUser" Content="Edit" 
+                                Command="{Binding DataContext.EditUser, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
+                                        Margin="4" FontWeight="Bold"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Window>

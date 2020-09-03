@@ -35,28 +35,28 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
         }
 
         /// <summary>
-        /// Gets all managers that arent the current user
+        /// Gets all manager ids that arent the current user
         /// </summary>
         /// <returns>a list of found users</returns>
-        public List<tblUser> GetAllManagers(int userID)
+        public List<int> GetAllManagers(int userID)
         {
             List<tblUser> tblUsers = GetAllUsers();
             try
             {
                 using (EmployeeDBEntities context = new EmployeeDBEntities())
                 {
-                    List<tblUser> listButSelected = new List<tblUser>();
-                    listButSelected = (from x in context.tblUsers select x).ToList();
+                    List<int> listButSelected = new List<int>();
+                    listButSelected = (from x in context.tblUsers select x.UserID).ToList();
 
                     bool isUser = IsUserID(userID);
 
+                    // Remove the editing user from the list
                     if (isUser == true)
                     {
                         // find the user before removing them from the list
-                        tblUser userToDelete = (from r in context.tblUsers where r.UserID == userID select r).First();
+                        int userToDelete = (from r in context.tblUsers where r.UserID == userID select r.UserID).First();
 
                         listButSelected.Remove(userToDelete);
-
                     }
 
                     return listButSelected;
@@ -103,9 +103,8 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
         /// Edits a new user depending if the uderID already exists
         /// </summary>
         /// <param name="user">the user that is being added</param>
-        /// <param name="sector">the sector that is being added</param>
         /// <returns>a new user</returns>
-        public tblUser AddUser(tblUser user, tblSector sector)
+        public tblUser AddUser(tblUser user)
         {
             Validations val = new Validations();
 
@@ -126,7 +125,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
                             DateOfBirth = user.DateOfBirth,
                             Gender = user.Gender,
                             PhoneNumber = user.PhoneNumber,
-                            SectorID = sector.SectorID,
+                            SectorName = user.SectorName,
                             LocationID = user.LocationID,
                             ManagerID = user.ManagerID
                         };
@@ -150,7 +149,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
                         usersToEdit.DateOfBirth = user.DateOfBirth;
                         usersToEdit.Gender = user.Gender;
                         usersToEdit.PhoneNumber = user.PhoneNumber;
-                        usersToEdit.SectorID = sector.SectorID;
+                        usersToEdit.SectorName = user.SectorName;
                         usersToEdit.LocationID = user.LocationID;
                         usersToEdit.ManagerID = user.ManagerID;
                         usersToEdit.UserID = user.UserID;

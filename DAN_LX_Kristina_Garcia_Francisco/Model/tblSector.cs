@@ -14,16 +14,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.Model
     
     public partial class tblSector
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblSector()
-        {
-            this.tblUsers = new HashSet<tblUser>();
-        }
-    
         public int SectorID { get; set; }
         public string SectorName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUser> tblUsers { get; set; }
     }
 }

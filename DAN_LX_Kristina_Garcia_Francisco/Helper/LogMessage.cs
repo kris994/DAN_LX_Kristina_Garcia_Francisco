@@ -10,7 +10,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.Helper
     class LogMessage
     {
         // File where to save the message
-        private readonly string file = "LogFile.txt";
+        private readonly string file = @"../../TextFile/LogFile.txt";
         // The lock object protecting the entrance to the file
         private readonly object locker = new object();
 

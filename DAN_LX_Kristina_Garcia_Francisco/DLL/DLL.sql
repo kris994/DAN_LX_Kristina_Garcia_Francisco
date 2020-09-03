@@ -10,27 +10,27 @@ GO
 USE EmployeeDB
 CREATE TABLE tblSector(
 	SectorID INT IDENTITY(1,1) PRIMARY KEY 		NOT NULL,
-	SectorName CHAR (40)						NOT NULL,
+	SectorName VARCHAR (40)	UNIQUE				NOT NULL,
 );
 
 CREATE TABLE tblLocation(
-	LocationID INT IDENTITY(1,1) PRIMARY KEY 		NOT NULL,
-	LocationAddress		CHAR (40)					NOT NULL,
-	City				CHAR (40)					NOT NULL,
-	Country				CHAR (40)					NOT NULL,
+	LocationID INT IDENTITY(1,1) PRIMARY KEY 	NOT NULL,
+	LocationAddress		VARCHAR (40)			NOT NULL,
+	City				VARCHAR (40)			NOT NULL,
+	Country				VARCHAR (40)			NOT NULL,
 );
 
 CREATE TABLE tblUser(
 	UserID INT IDENTITY(1,1) PRIMARY KEY 		NOT NULL,
-	FirstName				CHAR (40)			NOT NULL,
-	LastName				CHAR (40)			NOT NULL,
-	JMBG					CHAR (13) UNIQUE	NOT NULL,
-	Gender					CHAR				NOT NULL,
+	FirstName				VARCHAR (40)		NOT NULL,
+	LastName				VARCHAR (40)		NOT NULL,
+	JMBG					VARCHAR (13) UNIQUE	NOT NULL,
+	Gender					VARCHAR				NOT NULL,
 	DateOfBirth				DATE     			NOT NULL,
-	IDCard					CHAR (9) UNIQUE		NOT NULL,
-	PhoneNumber				CHAR (20) UNIQUE	NOT NULL,
+	IDCard					VARCHAR (9) UNIQUE	NOT NULL,
+	PhoneNumber				VARCHAR (20) UNIQUE	NOT NULL,
 	ManagerID INT FOREIGN KEY REFERENCES tblUser(UserID),
-	SectorID INT FOREIGN KEY REFERENCES tblSector(SectorID) NOT NULL,
+	SectorName VARCHAR (40) FOREIGN KEY REFERENCES tblSector(SectorName) NOT NULL,
 	LocationID INT FOREIGN KEY REFERENCES tblLocation(LocationID) NOT NULL,
 );
 
