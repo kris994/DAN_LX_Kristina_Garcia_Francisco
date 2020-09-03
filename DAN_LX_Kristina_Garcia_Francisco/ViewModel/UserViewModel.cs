@@ -133,6 +133,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
                         int userID = User.UserID;
                         userData.DeleteUser(userID);
                         UserList.Remove(User);
+                        UserList = new ObservableCollection<tblUser>(userData.GetAllUsers().ToList());
                     }
                 }
                 catch (Exception ex)

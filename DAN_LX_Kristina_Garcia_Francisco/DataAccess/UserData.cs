@@ -172,7 +172,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
         /// <param name="userID">the user that is being deleted</param>
         public void DeleteUser(int userID)
         {
-            List<tblUser> tblUsers = GetAllUsers();
+            List<tblUser> allUsers = GetAllUsers();
             try
             {
                 using (EmployeeDBEntities context = new EmployeeDBEntities())
@@ -183,6 +183,18 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
                     {
                         // find the user before removing them
                         tblUser userToDelete = (from r in context.tblUsers where r.UserID == userID select r).First();
+
+                        // Update the manager id for users where we deleted their manager
+                        for (int i = 0; i < allUsers.Count; i++)
+                        {
+                            if (userToDelete.UserID == allUsers[i].ManagerID)
+                            {
+                                int? managerID = allUsers[i].ManagerID;
+                                tblUser usersToEdit = (from ss in context.tblUsers where ss.ManagerID == managerID select ss).First();
+                                usersToEdit.ManagerID = null;
+                                context.SaveChanges();
+                            }
+                        }
 
                         context.tblUsers.Remove(userToDelete);
                         context.SaveChanges();

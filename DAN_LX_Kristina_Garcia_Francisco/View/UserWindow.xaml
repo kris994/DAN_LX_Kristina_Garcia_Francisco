@@ -8,15 +8,15 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="User" Height="450" Width="1400">
+        Title="User" Height="450" Width="1500">
     <Window.Resources>
         <c:LocationConverter x:Key="locationConverter" />
         <c:SectorConverter x:Key="sectorConverter" />
         <c:FullNameConverter x:Key="fullNameConverter" />
     </Window.Resources>
-    <Grid>
+    <Grid Margin="0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="1500"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -24,8 +24,9 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-            <Button Width="120" Height="30" Name="btnAdduser" Content="Add user"
-                    Command="{Binding AddUser, UpdateSourceTrigger=PropertyChanged}" Margin="20,4,4,4" FontWeight="Bold"/>
+            <Button Width="120" Height="30" Name="btnAdduser" Content="Add user" Style="{StaticResource MaterialDesignRaisedButton}"
+                    Command="{Binding AddUser, UpdateSourceTrigger=PropertyChanged}" Margin="20,4,4,4" FontWeight="Bold"
+                    materialDesign:ButtonAssist.CornerRadius="20"/>
         </StackPanel>
         <Grid Grid.Column="1" Grid.Row="2" Height="auto" Width="auto">
             <DataGrid Name="DataGridUsers" ItemsSource="{Binding UserList, UpdateSourceTrigger=PropertyChanged}"
@@ -48,7 +49,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Name="btnDeleteUser" Content="Delete" 
+                                <Button Name="btnDeleteUser" Content="Delete" Style="{StaticResource MaterialDesignRaisedButton}" Foreground="White" Background="#FFF34A4A"
                                 Command="{Binding DataContext.DeleteUser, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
                                         Margin="4" FontWeight="Bold"/>
                             </DataTemplate>
@@ -57,7 +58,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Name="btnEditUser" Content="Edit" 
+                                <Button Name="btnEditUser" Content="Edit" Style="{StaticResource MaterialDesignRaisedButton}" Foreground="White" Background="#FF8BC34A"
                                 Command="{Binding DataContext.EditUser, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
                                         Margin="4" FontWeight="Bold"/>
                             </DataTemplate>

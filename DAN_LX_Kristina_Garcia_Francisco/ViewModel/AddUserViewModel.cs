@@ -20,7 +20,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
     /// </summary>
     class AddUserViewModel : BaseViewModel
     {
-        #region Global Variables
+        #region Global VariablesC:\Users\krist\source\repos\DAN_LX_Kristina_Garcia_Francisco\DAN_LX_Kristina_Garcia_Francisco\ViewModel\AddUserViewModel.cs
         readonly AddUserWindow addUserWindow;
         UserData userData = new UserData();
         LocationData locationData = new LocationData();
