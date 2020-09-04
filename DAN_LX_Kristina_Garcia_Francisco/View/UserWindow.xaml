@@ -28,7 +28,29 @@
                     Command="{Binding AddUser, UpdateSourceTrigger=PropertyChanged}" Margin="20,4,4,4" FontWeight="Bold"
                     materialDesign:ButtonAssist.CornerRadius="20"/>
         </StackPanel>
-        <Grid Grid.Column="1" Grid.Row="2" Height="auto" Width="auto">
+        <Grid Grid.Row="1">
+            <materialDesign:Snackbar 
+                    Height="40" 
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,0"
+                    IsActive="False"
+                    x:Name="InfoMessage"
+                    FontSize="16"
+                    Background="{Binding InfoColor}"
+                    FontFamily="{DynamicResource MaterialDesignFont}"
+                    >
+                <materialDesign:SnackbarMessage Content="{Binding InfoText}"
+                                                    HorizontalContentAlignment="Center"
+                                                    Margin="0,10,0,0"
+                                                    Height="40"
+                                                    Width="400"
+                                                    FontWeight="Bold"
+                                                    Foreground="Black"
+                                                    ActionCommand="{Binding SnackInfo}" />
+            </materialDesign:Snackbar>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="2" Height="auto" Width="auto">
             <DataGrid Name="DataGridUsers" ItemsSource="{Binding UserList, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding User, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HeadersVisibility="Column"
                       AutoGenerateColumns="False"

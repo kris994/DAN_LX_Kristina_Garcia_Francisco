@@ -10,7 +10,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Add User"
-        Height="750"
+        Height="600"
         Width="400"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -25,22 +25,11 @@
         <c:LocationConverter x:Key="LocationConverter" />
         <c:FullNameConverter x:Key="FullNameConverter" />
         <vm:tblUser x:Key="data"/>
-
-        <!--The tool tip for the TextBox to display the validation error message.-->
-        <Style x:Key="textBoxInError" TargetType="TextBox">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                        Path=(Validation.Errors)[0].ErrorContent}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
     </Window.Resources>
     <Grid>
         <Border BorderBrush="#505050"
                 x:Name="border"
-                Height="750"
+                Height="600"
                 Width="400"
                 BorderThickness="3"
                 >
@@ -51,9 +40,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"></RowDefinition>
                         <RowDefinition Height="20"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
@@ -92,72 +78,88 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                     </Grid>
-                    <Grid Grid.Row="2">
-                        <TextBox x:Name="txtFirstName"
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox x:Name="txtFirstName" 
+                                 HorizontalAlignment="Left"
                                  materialDesign:HintAssist.Hint="First Name*"
-                                 Width="300"
+                                 Width="130"
                                  HorizontalContentAlignment="Left"
                                  Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Height="45"
-                                 Margin="0,0,0,0"
+                                 Margin="0,0,17,0"
                                  MaxLength="40"
                                  SelectionBrush="#FF8BC34A" />
-                    </Grid>
-                    <Grid Grid.Row="3">
-                        <TextBox x:Name="txtLastName"
+                        <TextBox x:Name="txtLastName" 
+                                 HorizontalAlignment="Right"
                                  materialDesign:HintAssist.Hint="Last Name*"
-                                 Width="300"
+                                 Width="130"                              
                                  HorizontalContentAlignment="Left"
                                  Text="{Binding User.LastName, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Height="45"
-                                 Margin="0,0,0,0"
+                                 Margin="17,0,0,0"
                                  MaxLength="40"
                                  SelectionBrush="#FF8BC34A" ></TextBox>
-                    </Grid>
-                    <Grid Grid.Row="4">
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBox x:Name="txtJMBG"
                                  materialDesign:HintAssist.Hint="JMBG*"
-                                 Width="300"
+                                 HorizontalAlignment="Left"
+                                 Width="180"
+                                 DataObject.Pasting="PastingHandler"
                                  HorizontalContentAlignment="Left"
                                  Text="{Binding User.JMBG, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                  PreviewTextInput="NumberValidationTextBox"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Height="45"
-                                 Margin="0,0,0,0"
+                                 Margin="0,0,17,0"
                                  MaxLength="13"
                                  SelectionBrush="#FF8BC34A" />
-                    </Grid>
-                    <Grid Grid.Row="5">
                         <TextBox x:Name="txtDateOfBirth"
                                  materialDesign:HintAssist.Hint="Date of Birth"
-                                 Width="300"
+                                 HorizontalAlignment="Right"
+                                 Width="80"
                                  HorizontalContentAlignment="Center"
                                  Text="{Binding User.JMBG, UpdateSourceTrigger=PropertyChanged}"
                                  TextChanged="TextBox_TextChanged"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 IsEnabled="False"
                                  Height="45"
-                                 Margin="0,0,0,0"
-                                 MaxLength="40"
-                                 SelectionBrush="#FF8BC34A" />
-                    </Grid>
-                    <Grid Grid.Row="6">
+                                 Margin="17,0,0,0"
+                                 MaxLength="40" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBox x:Name="txtIDCard"
+                                 HorizontalAlignment="Left"
                                  materialDesign:HintAssist.Hint="ID Card"
-                                 Width="300"
+                                 Width="130"
+                                 DataObject.Pasting="PastingHandler"
                                  HorizontalContentAlignment="Left"
                                  Text="{Binding User.IDCard, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                  PreviewTextInput="NumberValidationTextBox"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Height="45"
-                                 Margin="0,0,0,0"
+                                 Margin="0,0,17,0"
                                  MaxLength="9"
                                  SelectionBrush="#FF8BC34A" />
-                    </Grid>
-                    <Grid Grid.Row="7">
-                        <StackPanel Orientation="Horizontal" Height="40" HorizontalAlignment="Center" Margin="0,20,0,0">
-                            <Label Margin="0,8,20,0">Gender: </Label>
+                        <TextBox x:Name="txtPhoneNumber"
+                                 HorizontalAlignment="Right"
+                                 materialDesign:HintAssist.Hint="Phone Number"
+                                 Width="130"
+                                 DataObject.Pasting="PastingHandler"
+                                 HorizontalContentAlignment="Left"
+                                 Text="{Binding User.PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 PreviewTextInput="NumberValidationTextBox"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Height="45"
+                                 Margin="17,0,0,0"
+                                 MaxLength="40"
+                                 SelectionBrush="#FF8BC34A" />
+                    </StackPanel>
+                    <Grid Grid.Row="5">
+                        <StackPanel Orientation="Horizontal" Height="40" HorizontalAlignment="Center" Margin="10,15,0,0">
+                            <Label Margin="0,8,20,0">Gender:</Label>
                             <RadioButton  GroupName="gender" Width="80" Name="cbM" Content="Male" IsChecked="{Binding User.Gender, 
                                     Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=M, UpdateSourceTrigger=PropertyChanged}"></RadioButton>
                             <RadioButton  GroupName="gender" Width="80" Name="cbF" Content="Female" IsChecked="{Binding User.Gender, 
@@ -166,20 +168,8 @@
                                     Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=X, UpdateSourceTrigger=PropertyChanged}"></RadioButton>
                         </StackPanel>
                     </Grid>
-                    <Grid Grid.Row="8">
-                        <TextBox x:Name="txtPhoneNumber"
-                                 materialDesign:HintAssist.Hint="Phone Number"
-                                 Width="300"
-                                 HorizontalContentAlignment="Left"
-                                 Text="{Binding User.PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                                 PreviewTextInput="NumberValidationTextBox"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Height="45"
-                                 Margin="0,0,0,0"
-                                 MaxLength="40"
-                                 SelectionBrush="#FF8BC34A" />
-                    </Grid>
-                    <Grid Grid.Row="9">
+
+                    <Grid Grid.Row="6">
                         <ComboBox Name="cmbLocation" Height="45" Width="300"
                   IsEditable="False" ItemsSource="{Binding LocationIDList, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding User.LocationID}" 
@@ -194,7 +184,7 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
-                    <Grid Grid.Row="10">
+                    <Grid Grid.Row="7">
                         <TextBox x:Name="txtSector"
                                  materialDesign:HintAssist.Hint="Sector"
                                  Width="300"
@@ -206,11 +196,11 @@
                                  MaxLength="40"
                                  SelectionBrush="#FF8BC34A" />
                     </Grid>
-                    <Grid Grid.Row="11">
+                    <Grid Grid.Row="8">
                         <ComboBox Name="cmbManager" Height="45" Width="300"
                   IsEditable="False" ItemsSource="{Binding ManagerList, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding User.ManagerID}" 
-                  materialDesign:HintAssist.Hint="Manager*"
+                  materialDesign:HintAssist.Hint="Manager"
                   VerticalAlignment="Top"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                   Margin="0,0,0,0">
@@ -221,7 +211,7 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
-                    <Grid Grid.Row="12">
+                    <Grid Grid.Row="9">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
@@ -240,7 +230,7 @@
                             BorderBrush="{x:Null}">Close
                         </Button>
                         <TextBlock Grid.Column="0"
-                               Margin="18,0,140,0"
+                               Margin="0,0,160,0"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Top"
                                FontSize="11"

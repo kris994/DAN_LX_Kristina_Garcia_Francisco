@@ -199,8 +199,24 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
                 OnPropertyChanged("ManagerList");
             }
         }
+
+        /// <summary>
+        /// Cheks if its possible to execute the add and edit commands
+        /// </summary>
+        private bool isUpdateUser;
+        public bool IsUpdateUser
+        {
+            get
+            {
+                return isUpdateUser;
+            }
+            set
+            {
+                isUpdateUser = value;
+            }
+        }
         #endregion
-        
+
         #region Commands
         /// <summary>
         /// Save Button
@@ -239,6 +255,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
                     bgWorker.RunWorkerAsync();
                 }
 
+                isUpdateUser = true;
                 addUserWindow.Close();
             }
             catch (Exception ex)

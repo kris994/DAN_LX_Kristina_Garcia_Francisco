@@ -63,5 +63,38 @@ namespace DAN_LX_Kristina_Garcia_Francisco.View
 
             txtDateOfBirth.Text = text;
         }
+
+        /// <summary>
+        /// Allowed Text
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        private Boolean TextAllowed(String s)
+        {
+            foreach (Char c in s.ToCharArray())
+            {
+                if (Char.IsLetter(c) || Char.IsControl(c))
+                {
+
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Cannot Copy Numbers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PastingHandler(object sender, DataObjectPastingEventArgs e)
+        {
+            String s = (String)e.DataObject.GetData(typeof(String));
+            if (!TextAllowed(s)) e.CancelCommand();
+        }
     }
 }

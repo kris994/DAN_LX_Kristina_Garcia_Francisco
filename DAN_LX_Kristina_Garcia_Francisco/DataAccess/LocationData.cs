@@ -59,7 +59,7 @@ namespace DAN_LX_Kristina_Garcia_Francisco.DataAccess
             {
                 using (EmployeeDBEntities context = new EmployeeDBEntities())
                 {
-                    list = (from x in context.tblLocations select x).OrderBy(x => x.LocationID).Select(x => x.LocationID).ToList();
+                    list = (from x in context.tblLocations select x).OrderBy(x => x.LocationAddress).Select(x => x.LocationID).ToList();
                     return list;
                 }
             }

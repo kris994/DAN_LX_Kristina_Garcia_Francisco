@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -91,6 +92,52 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
                 OnPropertyChanged("Sector");
             }
         }
+
+        /// <summary>
+        /// Info Text
+        /// </summary>
+        private string infoText;
+        public string InfoText
+        {
+            get
+            {
+                return infoText;
+            }
+            set
+            {
+                infoText = value;
+                OnPropertyChanged("InfoText");
+            }
+        }
+
+        /// <summary>
+        /// Info Color
+        /// </summary>
+        private string infoColor;
+        public string InfoColor
+        {
+            get
+            {
+                return infoColor;
+            }
+            set
+            {
+                infoColor = value;
+                OnPropertyChanged("InfoColor");
+            }
+        }
+        #endregion
+
+        #region SnackBarInfo
+        /// <summary>
+        /// Snack bar info showing
+        /// </summary>
+        public async void SnackInfo()
+        {
+            userWindow.InfoMessage.IsActive = true;
+            await Task.Delay(3000);
+            userWindow.InfoMessage.IsActive = false;
+        }
         #endregion
 
         #region Commands
@@ -130,10 +177,15 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
                             bgWorker.RunWorkerAsync();
                         }
 
+                        string firstname = User.FirstName;
+                        string lastname = User.LastName;
                         int userID = User.UserID;
                         userData.DeleteUser(userID);
                         UserList.Remove(User);
                         UserList = new ObservableCollection<tblUser>(userData.GetAllUsers().ToList());
+                        InfoText = $"Deleted the user {firstname} {lastname}";
+                        InfoColor = "#FFF34A4A";
+                        SnackInfo();
                     }
                 }
                 catch (Exception ex)
@@ -188,9 +240,19 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
             {
                 if (User != null)
                 {
+                    string firstname = User.FirstName;
+                    string lastname = User.LastName;
                     AddUserWindow addUser = new AddUserWindow(User);
                     addUser.ShowDialog();
                     UserList = new ObservableCollection<tblUser>(userData.GetAllUsers().ToList());
+
+                    // Notification
+                    if ((addUser.DataContext as AddUserViewModel).IsUpdateUser == true)
+                    {
+                        InfoText = $"Updated the user {firstname} {lastname}";
+                        InfoColor = "#FF8BC34A";
+                        SnackInfo();
+                    }
                 }
             }
             catch (Exception ex)
@@ -241,6 +303,14 @@ namespace DAN_LX_Kristina_Garcia_Francisco.ViewModel
                 AddUserWindow addUser = new AddUserWindow();
                 addUser.ShowDialog();
                 UserList = new ObservableCollection<tblUser>(userData.GetAllUsers().ToList());
+
+                // Notification
+                if ((addUser.DataContext as AddUserViewModel).IsUpdateUser == true)
+                {
+                    InfoText = $"Created a new user";
+                    InfoColor = "#FF8BC34A";
+                    SnackInfo();
+                }
             }
             catch (Exception ex)
             {

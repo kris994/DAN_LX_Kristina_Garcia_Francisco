@@ -8,6 +8,9 @@ namespace DAN_LX_Kristina_Garcia_Francisco.View
     /// </summary>
     public partial class UserWindow : Window
     {
+        /// <summary>
+        /// User Window
+        /// </summary>
         public UserWindow()
         {
             InitializeComponent();
